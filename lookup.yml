@@ -1,0 +1,8 @@
+--- # Lookup Playbook example
+- hosts: apacheweb
+  user: test
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - debug: msg="{{ lookup('env','home') }} is the value listed"
