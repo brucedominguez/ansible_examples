@@ -1,0 +1,18 @@
+--- #Git Module Example
+- hosts: apacheweb
+  user: test
+  connection: ssh
+  vars_prompt:
+  - name: "githubuser"
+    prompt: "Enter your github username"
+    private: no
+  - name: "githubpassword"
+    prompt: "Enter your github password"
+    private: yes
+  roles:
+    - { role: geerlingguy.git }
+  tasks:
+    - name: Check out a git repo on the remote server
+      git:
+        repo: https://{{ githubuser | urlencode }}:{{ githubpassword }}@github.com/brucedominguez/ansible_examples.git 
+        dest: /home/test/PlaybookRepo
