@@ -1,7 +1,14 @@
 --- #MASTER PLAYBOOK FOR WEB SERVERS
 - hosts: apacheweb
-  user: test
-  sudo: yes
+  remote_user: test
+  become: yes
+  become_method: sudo
   connection: ssh
+  pre_tasks:
+  - name: When did the ROLE took to run
+    raw: date > /home/test/startofrole.log
   roles: 
     - webservers
+  post_tasks:
+  - name: When did the Role end
+    raw: date > /home/test/endoforle.log
